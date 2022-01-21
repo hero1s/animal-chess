@@ -1,0 +1,10 @@
+[workspace]
+
+members = [
+    "bin",
+    "core",
+]
+
+exclude = [
+    "pymodule",
+]
