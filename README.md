@@ -1,14 +1,20 @@
-## Animal Chess
-Animal Fight Chess Game（斗兽棋） written in rust, using Alpha-Beta-Pruning algorithm, and implement AlphaZero algorithm for training.
+## 斗兽棋
+用rust实现的斗兽棋,使用Alpha-Beta-Pruning算法，并实现AlphaZero算法进行训练。
 
 ![assets/animal_chess.png](assets/animal_chess.png)
 
-## How To Play
-To win the game, one player must successfully move any animal into the Den（兽穴） of the opponent.
-See rules:
-- [http://ancientchess.com/page/play-doushouqi.htm](http://ancientchess.com/page/play-doushouqi.htm)
-- [https://en.wikipedia.org/wiki/Jungle_(board_game)](https://en.wikipedia.org/wiki/Jungle_(board_game)).
-
+## 玩法规则
+一方成功进入对方兽穴.
+斗兽棋是中国一种棋类游戏，双方有八只棋子，依大小顺序为象、狮、虎、豹、狼、犬、猫、鼠。
+较大的可吃较小的，同类可以互吃，而鼠则可吃象，象不能吃鼠。
+动物走一格，前后左右都可以。两者相同的相遇，执下一步棋的可吃对方而并不会与对方同归于尽
+1：如果一方进入了对方的兽穴便胜出。
+2：任何一方都不能进入自己的兽穴。
+3：如果对方的兽类走进陷阱，己方任何一只兽都可以把它吃掉。
+4：如果敌兽进入陷阱，一回合后，自己的兽类不吃掉陷阱中的敌兽，当对方进入己方兽穴时，则本方输。
+5：中间有两条小河（跟湖差不多），狮、虎可以横直方向跳过河，直接把对岸的动物吃掉。
+6：只有鼠可以下水，在水中的鼠可以阻隔狮、虎跳河。
+7：两鼠在水内可以互吃。
 ## How To Run
 It need rust nightly version.
 
@@ -92,14 +98,3 @@ EC # D
 T #@# L
 ```
 
-## Todo
-- [x] Seperate `game.rs` to `gui.rs` and `board.rs`
-- [x] Add `Monte Carlo Tree Search` Algorithm
-- [x] benmark board operation
-- [x] export module for python3
-- [x] add some test
-- [x] benmark pymodule
-- [x] encode/decode move
-- [x] generate fen
-- [x] repr board
-- [x] patch sdl2 to support `load_texture` from buffer

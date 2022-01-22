@@ -1,7 +1,7 @@
 use crate::board::*;
 use crate::player::*;
-use std::cell::RefCell;
 use rand::seq::SliceRandom;
+use std::cell::RefCell;
 use std::rc::Rc;
 
 struct Node {
@@ -41,7 +41,6 @@ impl Node {
                 max_uct_value = uct_value;
                 action_idx = idx;
             }
-
         }
 
         action_idx
@@ -53,8 +52,7 @@ impl Node {
     }
 }
 
-
-
+//蒙特卡罗搜索树
 pub struct MCTSPlayer {
     board: Rc<RefCell<Board>>,
 }
@@ -62,16 +60,13 @@ pub struct MCTSPlayer {
 impl MCTSPlayer {
     pub fn new(board: Rc<RefCell<Board>>) -> Self {
         Self {
-            board: board.clone()
+            board: board.clone(),
         }
     }
 
     fn mcts_run(&mut self, itermax: usize) -> MOVE {
         let state = self.board.clone();
-        let root = Rc::new(RefCell::new(Node::new(
-            state.clone(), None,
-            0
-        )));
+        let root = Rc::new(RefCell::new(Node::new(state.clone(), None, 0)));
 
         for _iter in 0..itermax {
             let mut node = Some(root.clone());
@@ -80,14 +75,18 @@ impl MCTSPlayer {
 
             // select
             {
-                while node.clone().unwrap().borrow().untried_moves.is_empty() &&
-                    ! node.clone().unwrap().borrow().children.is_empty()
+                while node.clone().unwrap().borrow().untried_moves.is_empty()
+                    && !node.clone().unwrap().borrow().children.is_empty()
                 {
                     let best_move_idx = node.clone().unwrap().borrow().uct_select_child();
-                    state.borrow_mut().move_chess(node.clone().unwrap().borrow().action[best_move_idx]);
+                    state
+                        .borrow_mut()
+                        .move_chess(node.clone().unwrap().borrow().action[best_move_idx]);
                     steps += 1;
 
-                    let child = node.clone().unwrap().borrow().children[best_move_idx].clone().unwrap();
+                    let child = node.clone().unwrap().borrow().children[best_move_idx]
+                        .clone()
+                        .unwrap();
                     node = Some(child);
                 }
             }
@@ -100,8 +99,9 @@ impl MCTSPlayer {
                     state.borrow_mut().move_chess(node_.borrow().action[mv_idx]);
                     steps += 1;
                     let child = Some(Rc::new(RefCell::new(Node::new(
-                            state.clone(), node.clone(),
-                            node_.borrow().action[mv_idx]
+                        state.clone(),
+                        node.clone(),
+                        node_.borrow().action[mv_idx],
                     ))));
 
                     node_.borrow_mut().children[mv_idx] = child.clone();
@@ -114,8 +114,12 @@ impl MCTSPlayer {
             let mut rollout_step = 0;
             loop {
                 let all_steps = state.borrow().generate_all_steps();
-                if all_steps.is_empty() { break; }
-                state.borrow_mut().move_chess(*all_steps.choose(&mut rand::thread_rng()).unwrap());
+                if all_steps.is_empty() {
+                    break;
+                }
+                state
+                    .borrow_mut()
+                    .move_chess(*all_steps.choose(&mut rand::thread_rng()).unwrap());
                 rollout_step += 1;
             }
 
@@ -161,7 +165,6 @@ impl MCTSPlayer {
         best_action
     }
 }
-
 
 impl Player for MCTSPlayer {
     fn get_move(&mut self) -> MOVE {
