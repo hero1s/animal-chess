@@ -1,12 +1,12 @@
 [package]
 name = "animal_chess"
 version = "0.1.1"
-authors = ["netcan <1469709759@qq.com>"]
+authors = ["toney <8242117@qq.com>"]
 edition = "2018"
 license = "MIT"
 readme = "README.md"
 description = "Animal Fight Chess Game（斗兽棋） written in rust."
-repository = "https://github.com/netcan/AnimalChess"
+repository = "https://github.com/hero1s/animal-chess"
 keywords = ["gamedev", "chess", "ai", "sdl"]
 
 [dependencies]

@@ -1,10 +1,5 @@
 /*************************************************************************
-    > File Name: board.rs
-    > Author: Netcan
-    > Descripton: Board impl
-    > Blog: http://www.netcan666.com
-    > Mail: 1469709759@qq.com
-    > Created Time: 2020-06-20 19:23
+
 ************************************************************************/
 
 use crate::chess::{ChessKind::*, RoleType::*, *};
